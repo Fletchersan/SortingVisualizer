@@ -62,58 +62,14 @@ class Array extends Component {
     //0 -> first selection change to comparision color
     //1 -> means second selection change to original color
     //2 -> means actual swap so 2nd element is first index and 3rd element is other index
-    // quickSort(){
-    //     const animations = quickSortAnimations(this.state.arr);
-    //     for(let i = 0; i<animations.length; ++i)
-    //     {
-    //         let array = document.getElementsByClassName("bar");
-    //         if(animations[i][0] == 0)//select the two elements
-    //         {
-    //             const[barOneIdx, barTwoIdx] = animations[i].slice(1);
-    //             console.log(animations[i].slice(1));
-    //             const barOneInnerStyle = array[barOneIdx].getElementsByClassName("inBar")[0].style;
-    //             const barTwoInnerStyle = array[barTwoIdx].getElementsByClassName("inBar")[0].style;
-
-    //             setTimeout(() => {
-    //                 barOneInnerStyle.backgroundColor = COMPCOLOR;
-    //                 barTwoInnerStyle.backgroundColor = COMPCOLOR;
-    //             },i * ANIMATION_SPEED_MS);
-    //         } else if(animations[i][0] == 1)//select the two elements
-    //         {
-    //             const[barOneIdx, barTwoIdx] = animations[i].slice(1);
-    //             console.log(animations[i].slice(1));
-    //             const barOneInnerStyle = array[barOneIdx].getElementsByClassName("inBar")[0].style;
-    //             const barTwoInnerStyle = array[barTwoIdx].getElementsByClassName("inBar")[0].style;
-
-    //             setTimeout(() => {
-    //                 barOneInnerStyle.backgroundColor = ORGCOLOR;
-    //                 barTwoInnerStyle.backgroundColor = ORGCOLOR;
-    //             },i * ANIMATION_SPEED_MS);
-    //         } else if(animations[i][0] == 2) {
-    //             setTimeout(() => {
-    //                 const [bar1Idx, bar2Idx] = animations[i].slice(1);
-    //                 const bar1Ht =  array[bar1Idx].style.height;
-    //                 const bar2Ht =  array[bar2Idx].style.height;
-    //                 array[bar1Idx].style.height = bar1Ht;
-    //                 array[bar2Idx].style.height = bar2Ht;
-    //             }, i* ANIMATION_SPEED_MS);
-    //         }
-    //     }
-    // }
-    
-    //first element of animations is the key element 
-    //0 -> first selection change to comparision color
-    //1 -> means second selection change to original color
-    //2 -> means actual swap so 2nd element is index and 3rd element is height
     quickSort(){
         const animations = quickSortAnimations(this.state.arr);
         for(let i = 0; i<animations.length; ++i)
         {
             let array = document.getElementsByClassName("bar");
-            if(animations[i][0] == 0)//select the two elements
+            if(animations[i][0] === 0)//select the two elements
             {
                 const[barOneIdx, barTwoIdx] = animations[i].slice(1);
-                console.log(animations[i].slice(1));
                 const barOneInnerStyle = array[barOneIdx].getElementsByClassName("inBar")[0].style;
                 const barTwoInnerStyle = array[barTwoIdx].getElementsByClassName("inBar")[0].style;
 
@@ -121,10 +77,9 @@ class Array extends Component {
                     barOneInnerStyle.backgroundColor = COMPCOLOR;
                     barTwoInnerStyle.backgroundColor = COMPCOLOR;
                 },i * ANIMATION_SPEED_MS);
-            } else if(animations[i][0] == 1)//deselects the two elements
+            } else if(animations[i][0] === 1)//deselect the two elements
             {
                 const[barOneIdx, barTwoIdx] = animations[i].slice(1);
-                console.log(animations[i].slice(1));
                 const barOneInnerStyle = array[barOneIdx].getElementsByClassName("inBar")[0].style;
                 const barTwoInnerStyle = array[barTwoIdx].getElementsByClassName("inBar")[0].style;
 
@@ -132,15 +87,17 @@ class Array extends Component {
                     barOneInnerStyle.backgroundColor = ORGCOLOR;
                     barTwoInnerStyle.backgroundColor = ORGCOLOR;
                 },i * ANIMATION_SPEED_MS);
-            } else if(animations[i][0] == 2) {
+            } else if(animations[i][0] === 2) { // swap the two elements
                 setTimeout(() => {
-                    const [barIdx, newHt] = animations[i].slice(1);
-                    array[barIdx].style.height = `${newHt}px`;
+                    const [bar1Idx, bar2Idx] = animations[i].slice(1);
+                    const bar1Ht =  parseInt(array[bar1Idx].style.height.slice(0,-2));
+                    const bar2Ht =  parseInt(array[bar2Idx].style.height.slice(0,-2));
+                    array[bar1Idx].style.height = `${bar2Ht}px`;
+                    array[bar2Idx].style.height = `${bar1Ht}px`;
                 }, i* ANIMATION_SPEED_MS);
             }
         }
     }
-
 
     render() {
         const {arr} = this.state;
