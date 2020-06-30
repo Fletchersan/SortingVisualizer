@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import './Array.css'
-import {mergeSortAnimations, quickSortAnimations} from '../../Algorithms/algorithms';
+import {mergeSortAnimations, quickSortAnimations, heapSortAnimations, insertionSortAnimations} from '../../Algorithms/algorithms';
 const ARRAYLENGTH = 100;
 const MAXHT = 500;
 const MINHT = 20;
 const COMPCOLOR = 'red';
 const ORGCOLOR = 'yellow';
-const ANIMATION_SPEED_MS = 5000/(ARRAYLENGTH*3);
+const ANIMATION_SPEED_MS = 5;//00/(ARRAYLENGTH*3);
 class Array extends Component {
     constructor(props) {
         
@@ -58,12 +58,25 @@ class Array extends Component {
     }
 
     //--------------------QUICKSORT------------------------
+    quickSort(){
+        const animations = quickSortAnimations(this.state.arr);
+        this.animate(animations);
+    }
+    //-------------------HEAPSORT-------------------------
+    heapSort() {
+        const animations = heapSortAnimations(this.state.arr);
+        this.animate(animations);
+    }
+    //-------------------INSERTION SORT-----------------
+    insertionSort() {
+        const animations = insertionSortAnimations(this.state.arr);
+        this.animate(animations);
+    }
     //first element of animations is the key element 
     //0 -> first selection change to comparision color
     //1 -> means second selection change to original color
     //2 -> means actual swap so 2nd element is first index and 3rd element is other index
-    quickSort(){
-        const animations = quickSortAnimations(this.state.arr);
+    animate(animations) {
         for(let i = 0; i<animations.length; ++i)
         {
             let array = document.getElementsByClassName("bar");
@@ -98,7 +111,6 @@ class Array extends Component {
             }
         }
     }
-
     render() {
         const {arr} = this.state;
 
@@ -126,10 +138,10 @@ class Array extends Component {
                     <button onClick={() =>this.setArray()}>
                         Generate New Array
                     </button>
-                    <button onClick={() =>this.setArray()}>
+                    <button onClick={() =>this.heapSort()}>
                         Heap Sort
                     </button>
-                    <button onClick={() =>this.setArray()}>
+                    <button onClick={() =>this.insertionSort()}>
                         Insertion Sort
                     </button>
                 </div>
