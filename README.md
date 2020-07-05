@@ -1,5 +1,5 @@
 This is a sorting Visulizer made in reactJS. Heavily Inspired by Clement Mihailescu's project.
-
+Deployed on heroku at https://sheltered-lowlands-79771.herokuapp.com/
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
